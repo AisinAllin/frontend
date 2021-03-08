@@ -1,0 +1,15 @@
+#!/bin/sh
+# husky
+
+# Created by Husky v4.3.8 (https://github.com/typicode/husky#readme)
+#   At: 09/02/2021, 03:11:52
+#   From: /Users/wangshikai/Downloads/Github/aw-flamingo/node_modules/husky (https://github.com/typicode/husky#readme)
+
+# . "$(dirname "$0")/husky.sh"
+commit_regex='(aw-[0-9]+|merge)'
+error_msg="Aborting commit. Your commit message is missing either a JIRA Issue ('AW-001: ') or 'Merge'"
+
+if ! grep -iqE "$commit_regex" "$1"; then
+    echo "$error_msg" >&2
+    exit 1
+fi
