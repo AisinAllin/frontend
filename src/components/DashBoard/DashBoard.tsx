@@ -2,12 +2,13 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import NavBar from '../NavBar/NavBar';
-import * as actionCreators from '../../stroe/actions/index';
+
+import { loadName } from '../../stroe/actions/index';
 import LoginTest from './LoginTest';
 
 const Dashboard = (props:any) => {
   console.log('Dashboard', props.value);
-  console.log('Dashboard', props.loadName);
+  console.log('Dashboard', props.fetchName);
 
   return (
     <div>
@@ -18,7 +19,7 @@ const Dashboard = (props:any) => {
         <p>1</p>
         <p>1</p>
         <p>1</p>
-        <LoginTest handleClick={props.loadName} value={props.value} />
+        <LoginTest value={props.fetchName} />
       </div>
     </div>
   );
@@ -26,4 +27,10 @@ const Dashboard = (props:any) => {
 
 const mapStateToProps = (state:any) => state;
 
-export default connect(mapStateToProps, actionCreators)(Dashboard);
+const mapDispathcToProps = (dispatch: any) => {
+  return {
+    fetchName: (value:string) => dispatch(loadName()),
+  }
+}
+
+export default connect(mapStateToProps, mapDispathcToProps)(Dashboard);
