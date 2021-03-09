@@ -1,15 +1,16 @@
 /* eslint-disable*/
 const defaultState = {
-  value: 'write something~!'
+  value: 'rob'
 };
 
 const reducer = (
   state = defaultState, action:any,
 ) => {
   console.log('reducer',action.value);
+  console.log('reducer',action.type);
   console.log('reducer',action);
 
-  switch(action){
+  switch(action.type){
     case 'get_name':
       return {...state, value: action.value};
     default:
