@@ -1,14 +1,20 @@
+/* eslint-disable*/
 import React from 'react';
 import {
   Grid,
   Paper,
   Typography,
 } from '@material-ui/core';
+import { connect } from 'react-redux';
+import { loadName } from '../../stroe/actions/index';
 import logo from './assets/asyncWorkingLogo.svg';
 import LoginForm from './components/loginForm/LoginForm';
 import './Login.scss';
+import { getMaxListeners } from 'node:process';
 
-const Login: React.FC = () => (
+const Login = (props: any) => {
+  
+  return (
   <header className="login-header">
     <Grid container item xs={12} sm={6} alignItems="center" direction="column" className="grid">
       <Paper elevation={10} variant="outlined" className="paper">
@@ -22,5 +28,15 @@ const Login: React.FC = () => (
       </Paper>
     </Grid>
   </header>
-);
+  )
+};
+// const mapStateToProps = (state:any) => state;
+
+// const mapDispathcToProps = (dispatch: any) => {
+//   return {
+//     fetchName: (value:string) => dispatch(loadName(value)),
+//   }
+// }
 export default Login;
+
+// export default connect(mapStateToProps, mapDispathcToProps)(Login);

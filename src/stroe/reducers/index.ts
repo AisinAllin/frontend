@@ -1,6 +1,6 @@
 /* eslint-disable*/
 const defaultState = {
-  value: 'rob'
+  value: ' '
 };
 
 const reducer = (
