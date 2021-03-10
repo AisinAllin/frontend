@@ -18,6 +18,7 @@ import {
   Link,
 } from 'react-router-dom';
 import './LoginForm.scss';
+import { loadName } from '../../../../stroe/actions/index';
 import WarningMessage from '../warningMessage/WarningMessage';
 import { INTERNAL_SERVIER_ERROR, USERNAME_PASSWORD_MISMATCH_ERROR } from './const/const';
 
@@ -27,7 +28,7 @@ type LoginDetails = {
   remember: boolean;
 };
 
-const LoginForm: React.FC = () => {
+const LoginForm = (props: any) => {
   const [isSubmitBtnDisabled, setIsSubmitBtnDisabled] = useState(false);
   const [warning, setWarning] = useState({
     shown: false,
@@ -73,12 +74,18 @@ const LoginForm: React.FC = () => {
     });
   };
 
+  const handleClick = ({email}:LoginDetails) => {
+    const { fetchName } = props;
+    fetchName(email);
+  }
+
   return (
     <div className="login_form">
       <Formik
         initialValues={initialValues}
         onSubmit={onSubmit}
         validationSchema={validationSchema}
+        onClick={handleClick}
       >
         {() => (
           <Form>
@@ -146,9 +153,16 @@ const LoginForm: React.FC = () => {
               variant="contained"
               style={{ backgroundColor: '#2ab782' }}
               disabled={isSubmitBtnDisabled}
+              // onClick={props.value}
             >
               Sign in
             </Button>
+            
+            <Link to={`/Dashboard`}>
+              {/* <Button onClick={handleClick}>test</Button> */}
+              <Button>test</Button>
+            </Link>
+            
             <div style={{ height: 10 }} />
             <Grid container direction="row" justify="space-between" alignItems="center">
               <Grid item>
@@ -173,15 +187,12 @@ const LoginForm: React.FC = () => {
     </div>
   );
 };
+const mapStateToProps = (state:any) => state;
 
-const mapDispatchToProps = (dispatch: any) => {
-    return {
-        getName: () =>{
-          dispatch({
-            type: 'get_name'
-          })
-        }
-    }
-};
+const mapDispathcToProps = (dispatch: any) => {
+  return {
+    fetchName: (value:string) => dispatch(loadName(value)),
+  }
+}
 
-export default connect(null, mapDispatchToProps)(LoginForm);
+export default connect(mapStateToProps, mapDispathcToProps)(LoginForm)
